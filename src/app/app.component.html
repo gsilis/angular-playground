@@ -1,3 +1,15 @@
 <div class="container">
   <app-add-message></app-add-message>
+  <hr />
+  <div class="row">
+    <div *ngFor="let i of columns" [class]="getColumnClassName()">
+      <app-message-list></app-message-list>
+    </div>
+    <div class="col-sm-1">
+      <button class="btn btn-default"
+              (click)="onAddColumn()">
+        +
+      </button>
+    </div>
+  </div>
 </div>

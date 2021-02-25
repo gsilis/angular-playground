@@ -1,1 +1,9 @@
-<p>message-list works!</p>
+<h3>Messages</h3>
+<div class="row" *ngFor="let message of messages">
+  <div class="col-sm-4">
+    {{ message.title }}
+  </div>
+  <div class="col-sm-8">
+    {{ message.body }}
+  </div>
+</div>

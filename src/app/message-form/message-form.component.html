@@ -1,1 +1,24 @@
-<p>message-form works!</p>
+<form class="form">
+  <h2>{{ formTitle }}</h2>
+  <div class="form-group">
+    <label for="message-title">Title</label>
+    <input class="form-control"
+           id="message-title"
+           name="message-title"
+           type="text"
+           [(ngModel)]="title" />
+  </div>
+  <div class="form-group">
+    <label for="message-body">Message</label>
+    <textarea class="form-control"
+              id="message-body"
+              name="message-body"
+              [(ngModel)]="message">
+    </textarea>
+  </div>
+  <button class="btn btn-primary"
+    [disabled]="!hasMessage"
+    (click)="onSubmit()">
+    Save
+  </button>
+</form>

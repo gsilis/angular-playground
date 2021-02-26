@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Message } from './message';
 
 const messages: Message[] = [
@@ -16,21 +16,16 @@ export class MessagesService {
     body: 'The first body of the message.',
   }];
 
-  private messages: Observable<Message[]> = new Observable<Message[]>(this.onSubscribe.bind(this));
+  private messages: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>(this.cachedMessages);
 
   constructor() { }
 
   public publish(message: Message): void {
-    debugger;
-    console.log('Publishing from service', message);
+    this.cachedMessages.push(message);
+    this.messages.next(this.cachedMessages);
   }
 
-  public getMessages(): Observable<Message[]> {
+  public getMessages(): BehaviorSubject<Message[]> {
     return this.messages;
-  }
-
-  public onSubscribe(subscriber) {
-    console.log('Called', JSON.stringify(this.cachedMessages));
-    return subscriber.next(this.cachedMessages);
   }
 }

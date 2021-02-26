@@ -11,15 +11,26 @@ const messages: Message[] = [
 })
 export class MessagesService {
 
-  private messages: Observable<Message[]> = new Observable<Message[]>();
+  private cachedMessages: Message[] = [{
+    title: 'First Message',
+    body: 'The first body of the message.',
+  }];
+
+  private messages: Observable<Message[]> = new Observable<Message[]>(this.onSubscribe.bind(this));
 
   constructor() { }
 
   public publish(message: Message): void {
+    debugger;
     console.log('Publishing from service', message);
   }
 
   public getMessages(): Observable<Message[]> {
-    return of(messages);
+    return this.messages;
+  }
+
+  public onSubscribe(subscriber) {
+    console.log('Called', JSON.stringify(this.cachedMessages));
+    return subscriber.next(this.cachedMessages);
   }
 }
